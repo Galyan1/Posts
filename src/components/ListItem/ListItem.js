@@ -1,48 +1,25 @@
-import React, { Component } from 'react';
+import React  from 'react';
 import './post-list-item.css'
 
-export default class ListItem extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            important: false,
-            like: false
-        }
-        this.onImportant = this.onImportant.bind(this);
-        this.onLiked = this.onLiked.bind(this);
-    }
-    onImportant(){
-        this.setState(({important}) => ({
-            important: !important
-        }))  
-    }
-
-    onLiked(){
-        this.setState(({like}) => ({
-            like: !like
-        })) 
-    }
-    
-    render(){
-        const {label, onDelete} = this.props;
-        const {important, like} = this.state;
+const ListItem = ({label, onDelete, onToggleLike, onToggleImportant, like, important})=> {
+   
         let classNames = "btn-star btn-sm";
         let classNames1 = "fa fa-heart";
 
         if (important) {
             classNames += ' important';
         }
-        if (like) {
-            classNames1 += ' like';
-        }
+         if (like) {
+             classNames1 += ' like';
+         }
 
         return(
             <div className = "app-list-item d-flex justify-content-between">
-            <span className="app-list-item-label" onClick = {this.onLiked}>
+            <span className="app-list-item-label" onClick = {onToggleLike}>
                 {label}
             </span>
             <div className="d-flex justify-content-center align-items-center">
-                <button onClick = {this.onImportant}
+                <button onClick = {onToggleImportant}
                 type="button" 
                 className= {classNames}>
                     <i className="fa fa-star"></i>
@@ -58,4 +35,5 @@ export default class ListItem extends Component {
         </div>
         )
     }
-}
+
+export default ListItem;
